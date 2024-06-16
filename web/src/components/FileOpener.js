@@ -1,7 +1,7 @@
 import { useEffect, useState, useNavigate } from 'react';
 import VariationTable from './VariationTable'; 
 import VariationClasses from './VariationClasses'; 
-import "../style/FileOpener.css"; 
+import "../styles/FileOpener.scss"; 
 import AbnormalValues from './AbnormalValues';
 
 function FileOpener() {
