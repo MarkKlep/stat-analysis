@@ -33,6 +33,8 @@ const Histogram = () => {
   const minLowerBound = Math.min(...dataList.map(item => item.lowerBound));
   const maxUpperBound = Math.max(...dataList.map(item => item.upperBound));
 
+  const maxHistogramHeight = Math.max(...histogramData.map(item => item.relativeFrequency));
+
   return (
     <div style={{marginTop: '50px'}}>
       <b>Histogram</b>
@@ -45,7 +47,7 @@ const Histogram = () => {
           domain={[minLowerBound, maxUpperBound]}
           
         />
-        <YAxis type="number" domain={[0, 1]}/>
+        <YAxis type="number" domain={[0, maxHistogramHeight]}/>
         <Tooltip 
           formatter={(value, name, props) => {
             if (name === 'limits') {
@@ -68,7 +70,7 @@ const Histogram = () => {
       <LineChart width={700} height={400} data={funcDistr} >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="x" type='number' domain={[minLowerBound, maxUpperBound]} />
-        <YAxis type='number' domain={[0, 1]} />
+        <YAxis type='number' domain={[0, maxHistogramHeight]} />
         <Tooltip />
         <Legend />
         <Line type="monotone" dataKey='y' stroke="#82ca9d" />
