@@ -3,10 +3,8 @@ import { useParams } from 'react-router-dom';
 
 const ECDF = () => {
 
-  const {data} = useParams();
+  const { data } = useParams();
   const elements = JSON.parse(data);
-
-  console.log(elements);
 
   const ecdfValues = elements.map((element) => {
     const count = elements.filter((e) => e <= element).length;

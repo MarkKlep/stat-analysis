@@ -13,10 +13,13 @@ const AbnormalValues = ({ data, anomalies }) => {
 
   const chartData = list.map((el, index) => ({index, value: el}));
 
+  const maxY = Math.max(...list);
+  const maxX = list.length;
+
   return (
     <LineChart width={800} height={400} data={chartData}>
-      <XAxis type='number' dataKey="index" />
-      <YAxis type='number'/>
+      <XAxis type='number' dataKey="index" domain={[0, maxX]} />
+      <YAxis type='number' domain={[0, maxY]} />
       <CartesianGrid stroke="#f5f5f5" />
       <Tooltip />
       <Legend />

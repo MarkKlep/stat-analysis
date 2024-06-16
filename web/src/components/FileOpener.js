@@ -1,7 +1,8 @@
-import { useEffect, useState, useNavigate } from 'react';
+import { useEffect, useState } from 'react';
 import VariationTable from './VariationTable'; 
 import VariationClasses from './VariationClasses'; 
 import "../styles/FileOpener.scss"; 
+import "../styles/ButtonView.scss";
 import AbnormalValues from './AbnormalValues';
 
 function FileOpener() {
@@ -62,12 +63,26 @@ function FileOpener() {
     setShowAnomalies(false); 
   }
   
-
-  const buttonContainerStyle = {
+  const containerStyle = {
     marginTop: '50px',
     padding: '20px',
     border: '1px solid #ccc',
     borderRadius: '5px',
+    backgroundColor: '#f5f5f5',
+  };
+
+  const buttonContainerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    gap: '10px',
+  };
+
+  const fileOpenerContainerStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: '30px',
     backgroundColor: '#f5f5f5',
   };
 
@@ -77,8 +92,10 @@ function FileOpener() {
 
   return (
     <div>
-      <label htmlFor="file" style={{ cursor: 'pointer' }}>Оберіть файл: </label>
-      <input type="file" id="file" onChange={handleFileChange}/>
+      <div style={fileOpenerContainerStyle}>
+        <label htmlFor="file" style={{ cursor: 'pointer' }}>Оберіть файл: </label>
+        <input type="file" id="file" onChange={handleFileChange}/>
+      </div>
 
       {fileData ? (
         <div>
@@ -87,23 +104,27 @@ function FileOpener() {
             <VariationClasses data={fileData} /> 
           </div>
           
-          
-
-          <div style={buttonContainerStyle}>
-            <button onClick={handleFindAbnormal}>Пошук аномалій</button>
+          <div style={containerStyle}>
+            <div style={buttonContainerStyle} >
+              <button onClick={handleFindAbnormal}>Пошук аномалій</button>
+              <button 
+                onClick={handleRemoveAnomalies}
+                disabled={!showAnomalies || anomalies.length === 0}
+              >
+                Видалити аномальні значення
+              </button>
+            </div>
 
             {showAnomalies && (
               <div>
                 <h2>Аномальні значення:</h2>
-                <ul>
+                <ul style={{ height: '120px', overflow: 'scroll' }}>
                   {anomalies.map((value, index) => (
                     <li key={index}>{value}</li>
                   ))}
                 </ul>
                   
                 <AbnormalValues data={fileData} anomalies={anomalies}/>
-
-                <button onClick={handleRemoveAnomalies}>Видалити аномальні значення</button>
 
               </div>
             )}

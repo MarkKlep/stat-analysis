@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,Scatter, ScatterChart } from 'recharts';
+import { XAxis, YAxis, CartesianGrid, Tooltip, Legend,Scatter, ScatterChart } from 'recharts';
 
 const Indicators = () => {
 
@@ -45,7 +45,6 @@ const Indicators = () => {
   const Xj = dataList[j]; 
   const Xk = dataList[k]; 
 
-  //[==================================================]
   const _S2notMoved = dataList.reduce((accum, curr)=>{
     accum += (curr - arithmeticalMean)**2
     return accum;
@@ -75,7 +74,6 @@ const Indicators = () => {
   }
 
   const dots = dataList.map((x) => {
-    //console.log(jStat.normal.inv(ecdf(x), mean, stdDev));
     return {x: x, y: jStat.normal.inv(ecdf(x), mean, stdDev)};
   });
 
@@ -159,7 +157,7 @@ const Indicators = () => {
 
           <Scatter  type="monotone" dataKey="y" stroke="#8884d8" />
       
-      </ScatterChart >
+        </ScatterChart >
       </div>
 
     </div>

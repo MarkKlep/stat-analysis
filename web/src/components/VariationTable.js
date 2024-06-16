@@ -22,8 +22,6 @@ function VariationTable({ data }) {
     const variants = [...new Set(data)];
 
     const ecdf = function(value) {
-      //if(value <= variants[0]) return 0;
-      //if(value >= variants[variants.length - 1]) return 1;
       return data.filter((item) => item <= value).length / data.length;
     }
 
@@ -71,9 +69,6 @@ function VariationTable({ data }) {
           }
         </tfoot>
       </table>
-
-      
-      
     </div>
   );
 }

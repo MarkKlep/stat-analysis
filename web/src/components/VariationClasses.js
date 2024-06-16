@@ -30,8 +30,6 @@ function VariationClasses ({ data }) {
 
   useEffect(() => {   
     data.sort((a, b) => a - b);
-    // const Xmin = data[0];
-    // const Xmax = data[data.length - 1];
     const h = (Xmax - Xmin) / M;
 
     const classBoundaries = [];
@@ -55,7 +53,7 @@ function VariationClasses ({ data }) {
         return data.filter(el => el <= ceil).length / data.length;
     }
 
-    setClassesList( //set - async f 
+    setClassesList(
         classBoundaries.map((wide, index) => {
             return {
                 lowerBound: wide.lowerBound,
