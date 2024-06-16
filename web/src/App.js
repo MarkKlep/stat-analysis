@@ -1,4 +1,3 @@
-import './App.css';
 import {Link, Routes, Route} from 'react-router-dom';
 import FileOpener from './components/FileOpener';
 import HomePage from './components/HomePage';
@@ -6,6 +5,7 @@ import PageNotFound from './components/PageNotFound';
 import Histogram from './components/Histogram';
 import ECDF from "./components/ECDF";
 import Indicators from './components/Indicators';
+import './App.css';
 
 function App() {
   
@@ -27,11 +27,8 @@ function App() {
         <Route path='*' element={<PageNotFound/>}/>
       </Routes>
 
-
-
     </div>
   );
-
 }
 
 export default App;

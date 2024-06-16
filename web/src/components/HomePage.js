@@ -2,7 +2,7 @@
 const HomePage = () => {
   return (
     <div>
-      <p>Home page</p>
+      <p>Завантажити архів данних</p>
     </div>
   )
 }

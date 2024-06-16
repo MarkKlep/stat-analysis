@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import VariationTable from './VariationTable'; 
 import VariationClasses from './VariationClasses'; 
+import AbnormalValues from './AbnormalValues';
 import "../styles/FileOpener.scss"; 
 import "../styles/ButtonView.scss";
-import AbnormalValues from './AbnormalValues';
 
 function FileOpener() {
   const [fileData, setFileData] = useState(null);
