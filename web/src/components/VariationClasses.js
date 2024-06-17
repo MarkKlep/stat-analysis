@@ -121,13 +121,13 @@ function VariationClasses ({ data }) {
       </table>
 
       <nav style={{display: 'flex', justifyContent: 'space-around'}}>
-        <Link to={`/lab1/histogram/${JSON.stringify(classesList)}/${JSON.stringify(data)}/${b}/${(Xmax - Xmin) / M}`}>
+        <Link to={`/file-opener/histogram/${JSON.stringify(classesList)}/${JSON.stringify(data)}/${b}/${(Xmax - Xmin) / M}`}>
             Гістограма даних
         </Link>
-        <Link to={`/lab1/ecdf/${JSON.stringify(data)}`}>
+        <Link to={`/file-opener/ecdf/${JSON.stringify(data)}`}>
             Емпірична ф-я розподілу
         </Link>
-        <Link to={`/lab1/indicators/${JSON.stringify(data)}`}>
+        <Link to={`/file-opener/indicators/${JSON.stringify(data)}`}>
             Таблиця незсунених кількісних х-к показника
         </Link>
       </nav>

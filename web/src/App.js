@@ -14,12 +14,12 @@ function App() {
 
       <header>
         <Link to='/'>Home Page</Link>
-        <Link to='/lab1'>Варіаційний ряд та класи</Link>
+        <Link to='/file-opener'>Варіаційний ряд та класи</Link>
       </header>
 
       <Routes>
         <Route index path='/' element={<HomePage/>}/>
-        <Route path='/lab1' element={<FileOpener/>}>
+        <Route path='/file-opener' element={<FileOpener/>}>
           <Route path='histogram/:data/:elements/:b/:h' element={<Histogram/>}/>
           <Route path='ecdf/:data' element={<ECDF/>}/>
           <Route path='indicators/:data' element={<Indicators/>}/>

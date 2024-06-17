@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import VariationTable from './VariationTable'; 
 import VariationClasses from './VariationClasses'; 
 import AbnormalValues from './AbnormalValues';
+import { FileDataContext } from '../store/Provider';
 import "../styles/FileOpener.scss"; 
 import "../styles/ButtonView.scss";
 
 function FileOpener() {
-  const [fileData, setFileData] = useState(null);
   const [key, setKey] = useState(0);
   const [anomalies, setAnomalies] = useState([]);
   const [showAnomalies, setShowAnomalies] = useState(false);
+
+  const { fileData, setFileData } = useContext(FileDataContext);
 
   const handleFileChange = e => {
     const selectedFile = e.target.files[0];
