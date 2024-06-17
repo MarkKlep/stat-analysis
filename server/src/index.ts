@@ -1,29 +1,21 @@
 import express from 'express';
 import cors from 'cors';
-import AdmZip from 'adm-zip';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { getDataFromZipBuf } from './zip-buffer-processing.js';
+import { PORT, relPathToZip } from './constants.js';
 
 const app = express();
 app.use(cors());
 
-const PORT = 3001;
-
 app.get('/api/loadZipData', async (req, res) => {
-    const pathToZip = fileURLToPath(new URL('./assets/stat-data.zip', import.meta.url));
+    const pathToZip = fileURLToPath(new URL(relPathToZip, import.meta.url));
 
-    const zipBuffer = await readFile(pathToZip);
+    const zipBuff = await readFile(pathToZip);
 
-    const zip = new AdmZip(zipBuffer);
-    const zipEntries = zip.getEntries();
-    const data = zipEntries.map((entry) => {
-        return {
-            name: entry.entryName,
-            data: entry.getData().toString('utf8'),
-        };
-    }).filter((item) => item.data !== '');
+    const txtFilesData = getDataFromZipBuf(zipBuff);
 
-    res.status(200).send(data);
+    res.status(200).send(txtFilesData);
 });
 
 app.listen(PORT, () => {
