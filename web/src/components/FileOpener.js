@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import VariationTable from './VariationTable'; 
 import VariationClasses from './VariationClasses'; 
 import AbnormalValues from './AbnormalValues';
-import { FileDataContext } from '../store/Provider';
+import { FileDataContext } from '../providers/FileProvider';
 import "../styles/FileOpener.scss"; 
 import "../styles/ButtonView.scss";
 
@@ -11,7 +11,7 @@ function FileOpener() {
   const [anomalies, setAnomalies] = useState([]);
   const [showAnomalies, setShowAnomalies] = useState(false);
 
-  const { fileData, setFileData } = useContext(FileDataContext);
+  const { fileData, setFileData, setFileName } = useContext(FileDataContext);
 
   const handleFileChange = e => {
     const selectedFile = e.target.files[0];
@@ -23,6 +23,8 @@ function FileOpener() {
       const fileContent = e.target.result;
       let dataFromFile = fileContent.split('\r\n');
       dataFromFile = dataFromFile.map(variant => parseFloat(variant));
+
+      setFileName(selectedFile.name);
 
       setFileData(dataFromFile);
       setKey(prevKey => prevKey + 1);
@@ -102,7 +104,7 @@ function FileOpener() {
       {fileData ? (
         <div>
           <div key={key} style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <VariationTable data={fileData} /> 
+            <VariationTable /> 
             <VariationClasses data={fileData} /> 
           </div>
           

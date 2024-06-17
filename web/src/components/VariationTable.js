@@ -1,16 +1,18 @@
+import { useState, useEffect, useContext } from "react";
+import { FileDataContext } from "../providers/FileProvider";
 import "../styles/ValidationTable.scss"
-import { useState, useEffect } from "react";
 
-function VariationTable({ data }) {
+function VariationTable() {
   const [variationList, setVariationList] = useState([]);
-  
-  useEffect(() => {
 
-    data.sort((a, b) => a - b);
+  const { fileData } = useContext(FileDataContext);
+
+  useEffect(() => {
+    fileData.sort((a, b) => a - b);
 
     const frequencyMap = {};
 
-    data.forEach((value) => {
+    fileData.forEach((value) => {
       if (frequencyMap[value]) {
         frequencyMap[value]++;
       } 
@@ -19,10 +21,11 @@ function VariationTable({ data }) {
       }
     });
     
-    const variants = [...new Set(data)];
+    const variants = [...new Set(fileData)];
+    const N = fileData.length;
 
     const ecdf = function(value) {
-      return data.filter((item) => item <= value).length / data.length;
+      return fileData.filter((item) => item <= value).length / N;
     }
 
     setVariationList( 
@@ -30,12 +33,12 @@ function VariationTable({ data }) {
         {
           value,
           frequency: frequencyMap[value], 
-          relativeFrequency: parseFloat((frequencyMap[value]) / data.length).toFixed(4),
+          relativeFrequency: parseFloat((frequencyMap[value]) / N).toFixed(4),
           ECDF: parseFloat(ecdf(value)).toFixed(4)
         }
       ))
     );
-  }, [data]);
+  }, [fileData]);
 
   return (
     <div style={{maxHeight: '800px', overflow: 'scroll'}}>

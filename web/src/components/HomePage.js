@@ -1,23 +1,44 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { FileDataContext } from '../providers/FileProvider';
 import "../styles/HomePage.scss";
 
 const HomePage = () => {
   const [filesData, setFilesData] = useState([]);
 
-  const handleloadZipData = async () => {
-    const response = await fetch('http://localhost:3001/api/loadZipData');
-    const data = await response.json();
+  const { setFileData, setFileName } = useContext(FileDataContext);
 
-    setFilesData(data);
+  const handleLoadZipData = async () => {
+    try {
+      const response = await fetch('http://localhost:3001/api/loadZipData');
+
+      if (!response.ok) {
+        throw new Error('Помилка при завантаженні архіву данних');
+      }
+
+      const data = await response.json();
+
+      data.forEach(txtFile => {
+        txtFile.data = txtFile.data.split('\r\n').map(Number);
+      });
+
+      setFilesData(data);
+    } catch (error) {
+      console.log('Помилка:', error);
+    }
+  }
+
+  const handleLoadFileData = (selectedFile) => {
+    setFileName(selectedFile.name);
+    setFileData(selectedFile.data);
   }
 
   return (
     <div className="home-page">
-      <button className='load-btn' onClick={handleloadZipData}>Завантажити архів данних</button>
+      <button className='load-btn' onClick={handleLoadZipData}>Завантажити архів данних</button>
 
       <ul>
         {filesData.map((file, index) => (
-          <li key={index}>
+          <li key={index} onClick={() => handleLoadFileData(file)}>
             <p>{file.name}</p>
           </li>
         ))}

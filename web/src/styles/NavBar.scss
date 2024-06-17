@@ -1,0 +1,23 @@
+.nav-bar {
+    background-color: #333;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  
+    a {
+      color: #fff;
+      text-decoration: none;
+      margin-right: 20px;
+  
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  
+    p {
+      color: #fff;
+      margin: 0;
+    }
+  }
+  

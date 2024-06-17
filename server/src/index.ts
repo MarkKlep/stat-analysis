@@ -17,17 +17,13 @@ app.get('/api/loadZipData', async (req, res) => {
     const zip = new AdmZip(zipBuffer);
     const zipEntries = zip.getEntries();
     const data = zipEntries.map((entry) => {
-        if (entry.entryName.includes('stat-data')) {
-            return {
-                name: entry.entryName,
-                data: entry.getData(),
-            };
-        }
-    });
+        return {
+            name: entry.entryName,
+            data: entry.getData().toString('utf8'),
+        };
+    }).filter((item) => item.data !== '');
 
-    const notEmptyData = data.filter((entry) => entry.data.length > 0);
-
-    res.status(200).send(notEmptyData);
+    res.status(200).send(data);
 });
 
 app.listen(PORT, () => {
