@@ -1,1 +1,3 @@
-["snapshot image"]("./server/.tmp/histogram.png")
+#Histogram snapshot
+
+![snapshot image](./server/.tmp/histogram.png)
