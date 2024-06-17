@@ -1,0 +1,1 @@
+["snapshot image"]("./server/.tmp/histogram.png")

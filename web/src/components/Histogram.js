@@ -1,12 +1,15 @@
 import { Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Line, LineChart, ComposedChart  } from 'recharts';
 import { useParams } from 'react-router-dom';
-
+import { useRef } from 'react';
+import { createSnapshot } from '../snapshot-generating/snapshot-generating';
 const Histogram = () => {
   const { data, elements, b, h } = useParams();
   const dataList = JSON.parse(data);
   const bWindow = parseFloat(b);
   const elList = JSON.parse(elements);
   const hClasses = parseFloat(h);
+
+  const histogramRef = useRef(null);
 
   //KDE
   const KGauss = (u) => {
@@ -39,13 +42,13 @@ const Histogram = () => {
     <div style={{marginTop: '50px'}}>
       <b>Histogram</b>
 
-      <ComposedChart  data={histogramData}  barCategoryGap="0%" width={700} height={400}>
+    <div ref={histogramRef} >
+      <ComposedChart  data={histogramData}  barCategoryGap="0%" width={700} height={400} >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis 
           dataKey="lowerBound"
           type="number"
-          domain={[minLowerBound, maxUpperBound]}
-          
+          domain={[minLowerBound, maxUpperBound]}  
         />
         <YAxis type="number" domain={[0, maxHistogramHeight]}/>
         <Tooltip 
@@ -54,7 +57,7 @@ const Histogram = () => {
               return [`limits: ${value}`, `relativeFrequency: ${props.payload.relativeFrequency}`];
             }
             return [`relativeFrequency: ${value}`, `limits: ${props.payload.limits}`];
-            }}
+          }}
         />
         <Legend />
         <Bar 
@@ -64,9 +67,15 @@ const Histogram = () => {
           strokeWidth={1}    
         />
         <Line type="monotone" dataKey='y' stroke="#82ca9d" />
-        
       </ComposedChart >
+    </div>
+    
+    <div>
+      <button onClick={() => createSnapshot(histogramRef)}>Histogram Snapshot</button>
+    </div>
 
+    <b>Kernel Density Estimation</b>
+    <div>
       <LineChart width={700} height={400} data={funcDistr} >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="x" type='number' domain={[minLowerBound, maxUpperBound]} />
@@ -76,6 +85,7 @@ const Histogram = () => {
         <Line type="monotone" dataKey='y' stroke="#82ca9d" />
       </LineChart>
     </div>
+  </div>
   );
 };
 
