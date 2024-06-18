@@ -1,9 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { FileDataContext } from '../providers/FileProvider';
 import "../styles/HomePage.scss";
+import "../styles/Error.scss";
 
 const HomePage = () => {
   const [filesData, setFilesData] = useState([]);
+  const [failedToLoad, setFailedToLoad] = useState(null);
 
   const { setFileData, setFileName } = useContext(FileDataContext);
 
@@ -22,8 +24,9 @@ const HomePage = () => {
       });
 
       setFilesData(data);
+      setFailedToLoad(null);
     } catch (error) {
-      console.log('Помилка:', error);
+      setFailedToLoad('Помилка:', error);
     }
   }
 
@@ -43,6 +46,8 @@ const HomePage = () => {
           </li>
         ))}
       </ul>
+
+      {failedToLoad && <p className='error-text'>{failedToLoad}</p>}
     </div>
   )
 }
