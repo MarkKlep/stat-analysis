@@ -46,8 +46,8 @@ User-friendly platform for primary data analysis, distribution identification, h
 
 ## Requirements
 
-- Node.js (version x.x.x)
-- npm (version x.x.x)
+- Node.js
+- npm(node package manager)
 
 ## Installation
 
