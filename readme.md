@@ -7,3 +7,5 @@
 ![Empirical cumulative distribution function](./server/.tmp/ECDF.png)
 
 ![Probability paper](./server/.tmp/prob-paper.png)
+
+![Abnormal values](./server/.tmp/abnormal-values.png)
