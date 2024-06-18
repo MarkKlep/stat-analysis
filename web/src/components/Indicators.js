@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
 import { XAxis, YAxis, CartesianGrid, Tooltip, Legend,Scatter, ScatterChart } from 'recharts';
+import { useRef } from "react";
+import { createSnapshot } from "../snapshot-generating/snapshot-generating";
 
 const Indicators = () => {
+  const probPaperRef = useRef(null);
 
   const {data} = useParams();
   const dataList = JSON.parse(data);
@@ -28,12 +31,6 @@ const Indicators = () => {
     accum += (curr - arithmeticalMean)**3;
     return accum;
   }, 0) );
-
-
-  const sigmaS = (S/Math.sqrt(2 * dataList.length));
-  const sigmaA = ( Math.sqrt(6 * (dataList.length -2 ) / ((dataList.length + 1) * (dataList.length + 3)) ));
-  const sigmaE = Math.sqrt(24*dataList.length*(dataList.length-2)*(dataList.length-3)) / ( (dataList.length+1)**2 * (dataList.length+3)*(dataList.length+5) );
-
 
   const jStat = require('jstat');
   const confidenceLevel = 0.95; // Рівень довіри 95%
@@ -78,7 +75,7 @@ const Indicators = () => {
   });
 
   return (
-    <div style={{marginTop: '50px'}}>
+    <div style={{marginTop: '50px'}} >
       <table>
         <thead>
             <tr>
@@ -147,7 +144,7 @@ const Indicators = () => {
         )}
       </div>
 
-      <div>
+      <div ref={probPaperRef}>
         <ScatterChart  width={800} height={400} data={dots}>
           <XAxis type='number' dataKey="x" />
           <YAxis type='number'/>
@@ -159,7 +156,7 @@ const Indicators = () => {
       
         </ScatterChart >
       </div>
-
+      <button onClick={() => createSnapshot(probPaperRef, "prob-paper.png")}>Prob-Paper Snapshot</button>
     </div>
   )
 }

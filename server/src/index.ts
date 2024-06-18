@@ -3,7 +3,7 @@ import cors from 'cors';
 import { readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { getDataFromZipBuf } from './zip-buffer-processing.js';
-import { PORT, relPathToZip, relPathToHistogramImg } from './constants.js';
+import { PORT, relPathToZip, relPathToTmp } from './constants.js';
 
 const app = express();
 app.use(cors());
@@ -21,10 +21,12 @@ app.get('/api/loadZipData', async (req, res) => {
 
 app.post('/api/saveHistogramSnapshot', async (req, res) => {
   try {
+      const imgName = req.body.imgName;
+
       const imgBuffer = Buffer.from(req.body.imgData, 'base64');
-      const pathToHistogramImg = fileURLToPath(new URL(relPathToHistogramImg, import.meta.url));
+      const pathToTmp = fileURLToPath(new URL(relPathToTmp + imgName, import.meta.url));
       
-      await writeFile(pathToHistogramImg, imgBuffer);
+      await writeFile(pathToTmp, imgBuffer);
 
       res.status(200).send('Snapshot saved successfully');
       

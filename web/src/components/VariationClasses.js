@@ -23,7 +23,7 @@ function VariationClasses ({ data }) {
 
   useEffect(() => {
     if (refUpdateHistogram.current > 0) {
-        navigate(`/lab1/histogram/${JSON.stringify(classesList)}/${JSON.stringify(data)}/${b}/${(Xmax - Xmin) / M}`);
+        navigate(`/file-opener/histogram/${JSON.stringify(classesList)}/${JSON.stringify(data)}/${b}/${(Xmax - Xmin) / M}`);
     }
     refUpdateHistogram.current++;
   }, [classesList, b]);

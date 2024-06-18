@@ -11,6 +11,8 @@ const Histogram = () => {
 
   const histogramRef = useRef(null);
 
+  const KDERef = useRef(null);
+
   //KDE
   const KGauss = (u) => {
     return ( (1/Math.sqrt(2*Math.PI)) * Math.exp(-(u**2)/2) );
@@ -71,11 +73,11 @@ const Histogram = () => {
     </div>
     
     <div>
-      <button onClick={() => createSnapshot(histogramRef)}>Histogram Snapshot</button>
+      <button onClick={() => createSnapshot(histogramRef, "histogram.png")}>Histogram Snapshot</button>
     </div>
 
     <b>Kernel Density Estimation</b>
-    <div>
+    <div ref={KDERef} >
       <LineChart width={700} height={400} data={funcDistr} >
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="x" type='number' domain={[minLowerBound, maxUpperBound]} />
@@ -84,6 +86,9 @@ const Histogram = () => {
         <Legend />
         <Line type="monotone" dataKey='y' stroke="#82ca9d" />
       </LineChart>
+    </div>
+    <div>
+      <button onClick={() => createSnapshot(KDERef, "KDE.png")}>KDE Snapshot</button>
     </div>
   </div>
   );
