@@ -43,3 +43,27 @@ User-friendly platform for primary data analysis, distribution identification, h
     cd ./web
     npm start
     ```
+
+## Requirements
+
+- Node.js (version x.x.x)
+- npm (version x.x.x)
+
+## Installation
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/MarkKlep/stat-analysis.git
+    ```
+
+2. Install server dependencies:
+    ```sh
+    cd ./server
+    npm install
+    ```
+
+3. Install web dependencies:
+    ```sh
+    cd ./web
+    npm install
+    ```
