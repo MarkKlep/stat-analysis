@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { FileDataContext } from '../providers/FileProvider';
 import "../styles/HomePage.scss";
-import "../styles/Error.scss";
 
 const HomePage = () => {
   const [filesData, setFilesData] = useState([]);
