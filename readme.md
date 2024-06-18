@@ -29,3 +29,17 @@ User-friendly platform for primary data analysis, distribution identification, h
 
 ### Abnormal Values
 ![Abnormal values](./server/.tmp/abnormal-values.png)
+
+## Usage
+
+1. Start the server:
+    ```sh
+    cd ./server
+    npm start
+    ```
+
+2. Start the web application:
+    ```sh
+    cd ./web
+    npm start
+    ```
